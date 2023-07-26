@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bit.edu.member.mapper.MemberMapper">
+
+    <select id="existByMemberId" parameterType="string" resultType="boolean">
+        SELECT COUNT(*)
+        FROM book_user
+        WHERE user_id = #{memberId};
+    </select>
+
+    <insert id="createMember" parameterType="bit.edu.member.dto.MemberRegisterDto">
+        INSERT INTO book_user(user_id, user_phone_number, user_pass)
+        VALUES (#{userId}, #{phone}, #{password});
+    </insert>
+
+    <select id="findAllMember" resultType="bit.edu.member.dto.MemberDto">
+        SELECT user_seq, user_id, user_phone_number, user_status, user_grade, max_book, service_stop
+        FROM book_user;
+    </select>
+
+    <select id="findMemberByUserSeq" parameterType="int" resultType="bit.edu.member.dto.MemberDto">
+        SELECT user_seq, user_id, user_phone_number, user_status, user_grade, max_book, service_stop
+        FROM book_user
+        WHERE user_seq = #{userSeq};
+    </select>
+
+    <select id="findMemberByUserIdAndPassword"
+            parameterType="bit.edu.member.dto.LoginRequestDto"
+            resultType="bit.edu.member.dto.UserDetailsDto">
+        SELECT user_seq, user_id, user_phone_number, user_status, user_grade, max_book, service_stop
+        FROM book_user
+        WHERE user_id = #{id} AND user_pass = #{pass}
+    </select>
+
+    <delete id="deleteMemberByUserSeq" parameterType="int">
+        DELETE
+        FROM book_user
+        WHERE user_seq = #{useSeq};
+    </delete>
+
+    <update id="updateMemberByUserSeq" parameterType="bit.edu.member.dto.MemberModifyDto">
+        UPDATE book_user
+        SET user_phone_number = #{phoneNumber}
+        WHERE user_seq = #{userSeq}
+    </update>
+
+
+</mapper>

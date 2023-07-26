@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bit.edu.book.mapper.BookMapper">
+
+    <select id="findAllBook" resultType="bit.edu.book.dto.BookDto">
+        SELECT bc.book_seq,
+               bi.book_isbn,
+               bi.book_title,
+               bi.book_author,
+               bi.book_published_date,
+               bc.book_position,
+               bc.book_status
+       FROM book_copy AS bc
+              INNER JOIN book_info AS bi ON bc.book_isbn = bi.book_isbn;
+    </select>
+
+
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bit.edu.board.mapper.BoardMapper">
+
+    <select id="findAllBoard" parameterType="bit.edu.board.dto.BoardDto" resultType="bit.edu.board.dto.BoardDto">
+        SELECT *
+        FROM simple_board;
+    </select>
+
+    <select id="findBoardBySeq" parameterType="int" resultType="bit.edu.board.dto.BoardDto">
+        SELECT *
+        FROM simple_board
+        WHERE seq = #{seq};
+    </select>
+
+    <insert id="createBoard" parameterType="bit.edu.board.dto.BoardRegisterDto">
+        INSERT INTO simple_board(title, content, writer, create_date, password, attatch_data)
+        VALUES(#{title}, #{content}, #{writer} ,#{createDate}, #{password}, #{attatchData})
+    </insert>
+
+    <delete id="deleteBoardBySeq" parameterType="bit.edu.board.dto.BoardDeleteRequestDto">
+        DELETE
+        FROM simple_board
+        WHERE seq = #{seq} AND password = #{password};
+    </delete>
+
+
+</mapper>
